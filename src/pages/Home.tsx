@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, Heart, Calendar } from 'lucide-react'
 import { useChallengeData } from '@/contexts/ChallengeContext'
@@ -14,17 +14,23 @@ export default function Home() {
 
   const [showMotivationalMessage, setShowMotivationalMessage] = useState(false)
 
-  const handleCheckIn = () => {
+  const handleCheckIn = useCallback(() => {
     if (isCheckedInToday) return
 
     checkIn()
     setShowMotivationalMessage(true)
+  }, [isCheckedInToday, checkIn])
 
-    // Auto-hide motivational message after 4 seconds
-    setTimeout(() => setShowMotivationalMessage(false), 4000)
-  }
+  useEffect(() => {
+    if (!showMotivationalMessage) return
 
-  const progressPercentage = challengeType ? (currentStreak / challengeType) * 100 : 0
+    const timer = setTimeout(() => setShowMotivationalMessage(false), 4000)
+    return () => clearTimeout(timer)
+  }, [showMotivationalMessage])
+
+  const progressPercentage = challengeType && currentStreak 
+    ? Math.min((currentStreak / challengeType) * 100, 100)
+    : 0
 
   return (
     <div className="min-h-screen p-5 pt-16">

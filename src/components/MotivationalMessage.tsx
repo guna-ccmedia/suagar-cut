@@ -60,46 +60,48 @@ export default function MotivationalMessage({ day, onClose }: MotivationalMessag
   }, [onClose])
 
   return (
-    <motion.div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center p-5 z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-    >
+    <AnimatePresence>
       <motion.div
-        className="bg-gradient-to-br from-primary to-secondary rounded-3xl p-8 max-w-sm w-full relative shadow-2xl"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", damping: 20, stiffness: 300 }}
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 bg-black/50 flex items-center justify-center p-5 z-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+        <motion.div
+          className="bg-gradient-to-br from-primary to-secondary rounded-3xl p-8 max-w-sm w-full relative shadow-2xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          onClick={(e) => e.stopPropagation()}
         >
-          <X size={20} className="text-white" />
-        </button>
-        
-        <div className="text-center">
-          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-5">
-            <Heart size={40} className="text-white" />
-          </div>
-          
-          <h2 className="text-2xl font-bold text-white mb-4">Congratulations!</h2>
-          <p className="text-white/95 text-lg leading-relaxed mb-6">
-            {getMessage(day)}
-          </p>
-          
           <button
             onClick={onClose}
-            className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl border border-white/30 transition-all duration-200"
+            className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
           >
-            Keep Going!
+            <X size={20} className="text-white" />
           </button>
-        </div>
+          
+          <div className="text-center">
+            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-5">
+              <Heart size={40} className="text-white" />
+            </div>
+            
+            <h2 className="text-2xl font-bold text-white mb-4">Congratulations!</h2>
+            <p className="text-white/95 text-lg leading-relaxed mb-6">
+              {getMessage(day)}
+            </p>
+            
+            <button
+              onClick={onClose}
+              className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl border border-white/30 transition-all duration-200"
+            >
+              Keep Going!
+            </button>
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   )
 }

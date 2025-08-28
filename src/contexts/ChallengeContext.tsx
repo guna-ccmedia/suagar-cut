@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
 
 interface CheckInHistory {
   [date: string]: boolean; // YYYY-MM-DD format
